@@ -1,3 +1,7 @@
-const date = new Date('2024-10-09')
+const cron = require("node-cron");
 
-console.log(date);
+console.log("Cron job sẽ bắt đầu...");
+
+cron.schedule("* * * * *", () => {
+  console.log("Cron job đang chạy mỗi phút...");
+});
