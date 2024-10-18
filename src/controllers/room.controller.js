@@ -17,6 +17,13 @@ class RoomController {
     }).send(res);
   };
 
+  static allRoomEnd = async (req, res, next) => {
+    new SuccessResponse({
+      message: "get all room",
+      metadata: await RoomService.allRoomEnd(req.query),
+    }).send(res);
+  };
+
   static getDetailRoom = async (req, res, next) => {
     new SuccessResponse({
       message: "get detail room",
@@ -27,7 +34,7 @@ class RoomController {
   static getMyRoom = async (req, res, next) => {
     new SuccessResponse({
       message: "get all room",
-      metadata: await RoomService.getMyRoom({ userId: req.user.userId, ...req.query }),
+      metadata: await RoomService.getMyRoom(req.params),
     }).send(res);
   };
 
@@ -35,6 +42,13 @@ class RoomController {
     new SuccessResponse({
       message: "handleAuction",
       metadata: await RoomService.handleAuction({ uid: req.userId, ...req.body }),
+    }).send(res);
+  };
+
+  static auctionEnd = async (req, res, next) => {
+    new SuccessResponse({
+      message: "handleAuction",
+      metadata: await RoomService.auctionEnd(req.body),
     }).send(res);
   };
 

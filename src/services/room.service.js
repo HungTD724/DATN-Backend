@@ -42,7 +42,24 @@ class RoomService {
   static getAllRoom = async ({ page, limit }) => {
     const skip = (page - 1) * limit;
 
-    const rooms = roomModel.find().skip(skip).limit(limit);
+    const rooms = roomModel
+      .find({
+        status: "Đang diễn ra",
+      })
+      .skip(skip)
+      .limit(limit);
+    return rooms;
+  };
+
+  static allRoomEnd = async ({ page, limit }) => {
+    const skip = (page - 1) * limit;
+
+    const rooms = roomModel
+      .find({
+        status: "Đã kết thúc",
+      })
+      .skip(skip)
+      .limit(limit);
     return rooms;
   };
 
@@ -51,7 +68,7 @@ class RoomService {
     return room;
   };
 
-  static getMyRoom = async ({ userId, page, limit }) => {
+  static getMyRoom = async ({ userId, page = 1, limit = 10 }) => {
     const skip = (page - 1) * limit;
 
     const myRooms = roomModel
@@ -59,6 +76,14 @@ class RoomService {
       .skip(skip)
       .limit(limit);
     return myRooms;
+  };
+
+  static auctionEnd = async ({ roomId }) => {
+    const myRooms = await roomModel.findById({ _id: new Types.ObjectId(roomId) });
+
+    myRooms.status = "Đã kết thúc";
+
+    return myRooms.save();
   };
 
   static sendEmailAuctionSuccessful = async ({ uidOfHighestBid, auction }) => {
