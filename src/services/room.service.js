@@ -5,6 +5,7 @@ const roomModel = require("../models/room.model");
 const userModel = require("../models/user.model");
 const cron = require("node-cron");
 const { sendEmail } = require("../utils/postMail");
+const { UploadImage } = require("../utils/cloudinary");
 class RoomService {
   static createRoom = async ({ userId, itemName, title, description, file, startPrice, priceStep, startDate, endDate }) => {
     if (new Date(endDate) < new Date()) {
@@ -83,6 +84,27 @@ class RoomService {
 
     myRooms.status = "Đã kết thúc";
 
+    const highestBid = myRooms.bidHistory.reduce((max, bid) => (bid.bidAmount > max.bidAmount ? bid : max), myRooms.bidHistory[0]);
+
+    // Lấy uid tương ứng với bidAmount lớn nhất
+    const uidWithHighestBid = highestBid.uid;
+
+    const holderUser = await userModel.findById({ _id: uidWithHighestBid }).lean();
+    console.log(holderUser);
+
+    const emailSubject = "Xác Nhận Đấu Giá Thành Công!!";
+    const emailBody = `
+    Chúc mừng bạn!<br><br>
+    Bạn đã đấu giá thành công sản phẩm: <strong>${myRooms.title}</strong><br>
+    <img src=${myRooms.image}  />
+    Giá khởi điểm: <strong>${myRooms.startPrice.toLocaleString()} VNĐ</strong><br>
+    Giá đấu giá thành công: <strong>${myRooms.currentPrice.toLocaleString()} VNĐ</strong><br>
+    Thời gian kết thúc đấu giá: <strong>${new Date(myRooms.endDate).toLocaleString()}</strong><br><br>
+    
+    Cảm ơn bạn đã tham gia đấu giá!`;
+
+    await sendEmail(holderUser.email, emailSubject, emailBody);
+
     return myRooms.save();
   };
 
@@ -110,7 +132,7 @@ class RoomService {
   static handleAuction = async ({ uid, roomId, bidAmount }) => {
     const user = await userModel.findById(uid).lean();
     const room = await roomModel.findById(roomId);
-    bidAmount = Number(bidAmount);
+    bidAmount = Number(bidAmount.replace(/\./g, ""));
 
     console.log(bidAmount);
     console.log(user);
