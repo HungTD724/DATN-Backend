@@ -121,6 +121,21 @@ class AccessService {
     return user;
   };
 
+  static getAllUser = async ({ userId }) => {
+    // Tìm người dùng theo userId
+    const user = await USER_MODEL.findOne({ _id: userId });
+
+    const getAllUser = await USER_MODEL.find();
+
+    // Kiểm tra nếu người dùng tồn tại và có role là 'admin'x
+    if (user && user.role === "admin") {
+      return getAllUser;
+    }
+
+    // Nếu không phải admin hoặc không tìm thấy người dùng, trả về null hoặc thông báo lỗi
+    return null;
+  };
+
   static deductMoney = async ({ userId }) => {
     // Tìm người dùng bất đồng bộ
     const user = await USER_MODEL.findOne({ _id: userId });
@@ -165,6 +180,32 @@ class AccessService {
       ),
     };
   };
+
+   static deleteUser = async ({ userId }) => {
+    console.log({userId})
+      try {
+        // Kiểm tra nếu userId không hợp lệ
+        if (!userId) {
+          throw new Error('User ID is required.');
+        }
+
+        // Thực hiện xóa tất cả các phòng liên quan đến userId
+        const result = await USER_MODEL.deleteMany({_id: userId });
+
+        console.log({result})
+
+        // Kiểm tra nếu không có bản ghi nào bị xóa
+        if (result.deletedCount === 0) {
+          return { success: false, message: 'No rooms found to delete.' };
+        }
+
+        // Trả về kết quả thành công
+        return { success: true, message: `${result.deletedCount} rooms deleted.` };
+      } catch (error) {
+        // Xử lý lỗi
+        return { success: false, error: error.message };
+      }
+    };
 
   static login = async ({ email, password }) => {
     const foundUser = await USER_MODEL.findOne({ email });

@@ -52,6 +52,8 @@ class RoomController {
     }).send(res);
   };
 
+
+
   static sendEmailAuctionSuccessful = async (req, res, next) => {
     new SuccessResponse({
       message: "sendEmailAuctionSuccessful",

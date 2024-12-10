@@ -14,7 +14,8 @@ router.get("/my-room/:userId", asyncHandler(roomController.getMyRoom));
 router.get("/detail-room/:roomId", asyncHandler(roomController.getDetailRoom));
 router.post("/", uploadFile.single("picture"), asyncHandler(roomController.createRoom));
 router.post("/auction", asyncHandler(roomController.handleAuction));
-router.post("/auction-end", asyncHandler(roomController.auctionEnd));
+router.post("/auction-end", asyncHandler(roomController.auctionEnd)); 
+
 
 router.post("/send-email-auction-successful", asyncHandler(roomController.sendEmailAuctionSuccessful));
 

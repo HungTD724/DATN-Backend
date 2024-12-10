@@ -38,6 +38,12 @@ class AccessController {
     }).send(res);
   };
 
+  getAllUser = async (req, res, next) => {
+    new SuccessResponse({
+      metadata: await AccessService.getAllUser(req.params),
+    }).send(res);
+  };
+
   deductMoney = async (req, res, next) => {
     new SuccessResponse({
       metadata: await AccessService.deductMoney(req.params),
@@ -48,6 +54,13 @@ class AccessController {
     new CREATED({
       message: "Register success",
       metadata: await AccessService.signUp(req.body),
+    }).send(res);
+  };
+
+      deleteUser = async (req, res, next) => {
+    new SuccessResponse({
+      message: "handleAuction",
+      metadata: await AccessService.deleteUser(req.params),
     }).send(res);
   };
 }

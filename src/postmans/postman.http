@@ -6,18 +6,29 @@ x-api-key: 9c5fc232e6d39008a1757e4e97b576df03b1aac46dbf558344477b3f346bad379a831
 
 ###
 
-POST  {{url_dev}}/auth/signup
+POST  {{url_dev}}/auth/login
 Content-Type: application/json 
 x-api-key: 9c5fc232e6d39008a1757e4e97b576df03b1aac46dbf558344477b3f346bad379a831a6d8f567aed43c67dce6402f0ede2c72dda596c38553a78ae73cddffdae
 
 {
-"name": "Quy",
- "email": "quu", 
- "password" : "ququq"
+ "email": "ngoxuanquy06@gmail.com", 
+ "password" : "123456"
 
 }
+###
+GET  {{url_dev}}/auth/getAllUser/670e3bcadea8811fbf440548
+Content-Type: application/json 
+x-api-key: 9c5fc232e6d39008a1757e4e97b576df03b1aac46dbf558344477b3f346bad379a831a6d8f567aed43c67dce6402f0ede2c72dda596c38553a78ae73cddffdae
+
 
 ###
 GET {{url_dev}}/room
+Content-Type: application/json 
+x-api-key: 9c5fc232e6d39008a1757e4e97b576df03b1aac46dbf558344477b3f346bad379a831a6d8f567aed43c67dce6402f0ede2c72dda596c38553a78ae73cddffdae
+
+
+###
+
+POST  {{url_dev}}/room/delete-room/670e42b83bb9fe02d495efb2
 Content-Type: application/json 
 x-api-key: 9c5fc232e6d39008a1757e4e97b576df03b1aac46dbf558344477b3f346bad379a831a6d8f567aed43c67dce6402f0ede2c72dda596c38553a78ae73cddffdae

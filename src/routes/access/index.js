@@ -5,11 +5,13 @@ const { authentication } = require("../../auth/authUtils");
 
 const router = express.Router();
 
+router.get("/getAllUser/:userId", asyncHandler(accessController.getAllUser));
 router.post("/signup", asyncHandler(accessController.signUp));
 router.post("/login", asyncHandler(accessController.login));
 router.post("/verify-email", asyncHandler(accessController.verifyEmail));
 router.get("/getUser/:userId", asyncHandler(accessController.getUser));
 router.get("/deduct-money/:userId", asyncHandler(accessController.deductMoney));
+router.post("/delete-customer/:userId", asyncHandler(accessController.deleteUser)); 
 
 // router.use(authentication)
 
