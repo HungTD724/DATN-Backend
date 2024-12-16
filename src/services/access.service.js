@@ -152,6 +152,19 @@ class AccessService {
     return user.save();
   };
 
+  static updateUser = async ({ userId, name, birthDate, address, phoneNumber }) => {
+
+    const foundUser = await USER_MODEL.findById(userId)
+    foundUser.fullName = name
+    foundUser.birthDate = birthDate
+    foundUser.address = address
+    foundUser.phoneNumber = phoneNumber
+
+    await foundUser.save()
+
+    return 1
+  }
+
   static verifyEmail = async (params, res) => {
     const { code, email } = params;
 

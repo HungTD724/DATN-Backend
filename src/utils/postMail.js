@@ -7,16 +7,16 @@ const sendEmail = (to, subject, text) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "ngoxuanquy1812@gmail.com",
-      pass: "bgoz fvvx raus cqjo", // Consider using environment variables for sensitive information
+      user: "trandaihung2002@gmail.com",
+      pass: "kawi swyq fswa zsvt", // Consider using environment variables for sensitive information
     },
   });
   console.log(to);
   const mailOptions = {
-    from: "ngoxuanquy1812@gmail.com", // Địa chỉ người gửi
+    from: "trandaihung2002@gmail.com", // Địa chỉ người gửi
     to: to, // Địa chỉ người nhận
     subject: subject, // Tiêu đề email
-    text: text, // Nội dung email
+    html: text, // Nội dung email
   };
 
   // Gửi email

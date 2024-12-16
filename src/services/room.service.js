@@ -82,12 +82,14 @@ class RoomService {
   static auctionEnd = async ({ roomId }) => {
     const myRooms = await roomModel.findById({ _id: new Types.ObjectId(roomId) });
 
+    console.log({myRooms})
+
     myRooms.status = "Đã kết thúc";
-
-    const highestBid = myRooms.bidHistory.reduce((max, bid) => (bid.bidAmount > max.bidAmount ? bid : max), myRooms.bidHistory[0]);
-
+    const highestBid = myRooms?.bidHistory.reduce((max, bid) => (bid.bidAmount > max.bidAmount ? bid : max), myRooms.bidHistory[0]);
+    console.log({highestBid})
     // Lấy uid tương ứng với bidAmount lớn nhất
-    const uidWithHighestBid = highestBid.uid;
+    const uidWithHighestBid = highestBid?.uid;
+    if(uidWithHighestBid) {
 
     const holderUser = await userModel.findById({ _id: uidWithHighestBid }).lean();
     console.log(holderUser);
@@ -95,17 +97,28 @@ class RoomService {
     const emailSubject = "Xác Nhận Đấu Giá Thành Công!!";
     const emailBody = `
     Chúc mừng bạn!<br><br>
-    Bạn đã đấu giá thành công sản phẩm: <strong>${myRooms.title}</strong><br>
-    <img src=${myRooms.image}  />
-    Giá khởi điểm: <strong>${myRooms.startPrice.toLocaleString()} VNĐ</strong><br>
-    Giá đấu giá thành công: <strong>${myRooms.currentPrice.toLocaleString()} VNĐ</strong><br>
-    Thời gian kết thúc đấu giá: <strong>${new Date(myRooms.endDate).toLocaleString()}</strong><br><br>
+    Bạn đã đấu giá thành công sản phẩm: <strong>${myRooms?.title}</strong><br>
+    <img src=${myRooms?.image} style={{
+      widht: '100px',
+      height: '100px'
+    }} />
+     Giá khởi điểm: <strong>${myRooms?.startPrice.toLocaleString()} VNĐ</strong><br>
+    Giá đấu giá thành công: <strong>${myRooms?.currentPrice.toLocaleString()} VNĐ</strong><br>
+    Thời gian kết thúc đấu giá: <strong>${new Date(myRooms?.endDate).toLocaleString()}</strong><br><br>
     
     Cảm ơn bạn đã tham gia đấu giá!`;
 
-    await sendEmail(holderUser.email, emailSubject, emailBody);
-
+    await sendEmail(holderUser?.email, emailSubject, emailBody);
+    
     return myRooms.save();
+  }
+  else {
+    myRooms.save();
+    return "Kết thúc phiên đấu giá thành công"
+  }
+
+
+    // return myRooms.save();
   };
 
   static sendEmailAuctionSuccessful = async ({ uidOfHighestBid, auction }) => {

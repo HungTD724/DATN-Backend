@@ -13,6 +13,12 @@ class AccessController {
     }).send(res);
   };
 
+  updateUser = async (req, res, next) => {
+    new SuccessResponse({
+      metadata: await AccessService.updateUser({ ...req.body }),
+    }).send(res);
+  };
+
   logout = async (req, res, next) => {
     new SuccessResponse({
       message: "Logout success",

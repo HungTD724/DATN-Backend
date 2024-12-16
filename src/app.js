@@ -41,7 +41,7 @@ app.use(compression());
 // init db
 
 mongoose
-  .connect("mongodb+srv://girllinh4:hrQdehoMFZc1abV8@cluster0.9gulfoc.mongodb.net/?retryWrites=true&w=majority")
+  .connect("mongodb+srv://trandaihung2002:bTNGN4Edr8yIyemh@cluster0.sq96p.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => console.log("Success"))
   .catch((err) => console.log("erre", err));
 
