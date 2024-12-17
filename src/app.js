@@ -39,7 +39,7 @@ app.use(helmet());
 app.use(compression());
 
 // init db
-
+//mongodb+srv://trandaihung2002:bTNGN4Edr8yIyemh@cluster0.sq96p.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 mongoose
   .connect("mongodb+srv://trandaihung2002:bTNGN4Edr8yIyemh@cluster0.sq96p.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
   .then(() => console.log("Success"))

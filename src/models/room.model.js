@@ -46,6 +46,11 @@ const roomSchema = new Schema(
       // Giá hiện tại
       type: Number,
     },
+     currentId: {
+      // Giá hiện tại
+       type: String,
+         default: "",
+    },
     highestBidder: {
       // Người trả giá cao nhất
       type: String,
@@ -61,7 +66,7 @@ const roomSchema = new Schema(
     },
     status: {
       type: String,
-      default: "Đang diễn ra",
+      default: "Chưa được duyệt",
     },
     bidHistory: {
       type: Array,
