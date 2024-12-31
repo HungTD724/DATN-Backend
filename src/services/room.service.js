@@ -55,12 +55,25 @@ class RoomService {
     static notConfirmed = async ({ page, limit }) => {
     const skip = (page - 1) * limit;
 
-    const rooms = roomModel
+    const rooms = await roomModel
       .find({
         status: "Chưa được duyệt",
       })
       .skip(skip)
       .limit(limit);
+    return rooms;
+  };
+
+  static notConfirmedUseId = async ({userId }) => {
+
+    const rooms = await roomModel
+      .find({
+        status: "Chưa được duyệt",
+        user: userId
+      })
+    console.log({ userId })
+    console.log({rooms})
+    
     return rooms;
   };
 

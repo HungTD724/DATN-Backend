@@ -32,6 +32,14 @@ class RoomController {
     }).send(res);
   };
 
+  
+    static notConfirmedUseId = async (req, res, next) => {
+    new SuccessResponse({
+      message: "get all room",
+      metadata: await RoomService.notConfirmedUseId(req.params),
+    }).send(res);
+  };
+
   static allRoomEnd = async (req, res, next) => {
     new SuccessResponse({
       message: "get all room",

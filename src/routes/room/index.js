@@ -10,6 +10,7 @@ const router = express.Router();
 
 router.get("/", asyncHandler(roomController.getAllRoom));
 router.get("/not-confirmed", asyncHandler(roomController.notConfirmed));
+router.get("/not-confirmed-useId/:userId", asyncHandler(roomController.notConfirmedUseId));
 router.get("/allRoomEnd", asyncHandler(roomController.allRoomEnd));
 router.get("/my-room/:userId", asyncHandler(roomController.getMyRoom));
 router.get("/detail-room/:roomId", asyncHandler(roomController.getDetailRoom));

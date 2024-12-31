@@ -22,7 +22,7 @@ x-api-key: 9c5fc232e6d39008a1757e4e97b576df03b1aac46dbf558344477b3f346bad379a831
 
 
 ###
-GET {{url_dev}}/room
+GET {{url_dev}}/room/allRoomEnd
 Content-Type: application/json 
 x-api-key: 9c5fc232e6d39008a1757e4e97b576df03b1aac46dbf558344477b3f346bad379a831a6d8f567aed43c67dce6402f0ede2c72dda596c38553a78ae73cddffdae
 
